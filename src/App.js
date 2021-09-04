@@ -1,7 +1,7 @@
 import React from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import {Button, Container, Typography} from "@material-ui/core";
+import {Button, Container, Slider, Typography} from "@material-ui/core";
 import ReactPlayer from "react-player";
 import {makeStyles} from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -11,6 +11,7 @@ import FastRewindIcon from "@material-ui/icons/FastRewind";
 import FastForwardIcon from "@material-ui/icons/FastForward";
 import PlayArrow from "@material-ui/icons/PlayArrow";
 import PauseIcon from "@material-ui/icons/Pause";
+import {withStyles} from "@material-ui/styles";
 const useStyles = makeStyles({
     playerWrapper: {
         width: "100%",
@@ -40,6 +41,36 @@ const useStyles = makeStyles({
     }
 
 })
+
+const PrettoSlider = withStyles({
+    root: {
+        color: '#52af77',
+        height: 8,
+    },
+    thumb: {
+        height: 24,
+        width: 24,
+        backgroundColor: '#fff',
+        border: '2px solid currentColor',
+        marginTop: -8,
+        marginLeft: -12,
+        '&:focus, &:hover, &$active': {
+            boxShadow: 'inherit',
+        },
+    },
+    active: {},
+    valueLabel: {
+        left: 'calc(-50% + 4px)',
+    },
+    track: {
+        height: 8,
+        borderRadius: 4,
+    },
+    rail: {
+        height: 8,
+        borderRadius: 4,
+    },
+})(Slider);
 
 function App() {
     const classes = useStyles();
