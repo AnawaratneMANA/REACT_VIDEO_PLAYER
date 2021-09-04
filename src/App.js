@@ -6,7 +6,11 @@ import ReactPlayer from "react-player";
 import {makeStyles} from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import BookmarkIcon from "@material-ui/icons/Bookmark";
-
+import IconButton from "@material-ui/core/IconButton";
+import FastRewindIcon from "@material-ui/icons/FastRewind";
+import FastForwardIcon from "@material-ui/icons/FastForward";
+import PlayArrow from "@material-ui/icons/PlayArrow";
+import PauseIcon from "@material-ui/icons/Pause";
 const useStyles = makeStyles({
     playerWrapper: {
         width: "100%",
@@ -59,6 +63,19 @@ function App() {
 
                               </Button>
                           </Grid>
+                      </Grid>
+                      <Grid container direction="row" alignItems="center" justify="center">
+                          <IconButton className={classes.controlIcons} aria-label="reqind">
+                                <FastRewindIcon fontSize="inherit"/>
+                          </IconButton>
+
+                          <IconButton className={classes.controlIcons} aria-label="reqind">
+                                <PlayArrow fontSize="inherit"/>
+                          </IconButton>
+
+                          <IconButton className={classes.controlIcons} aria-label="reqind">
+                                <FastForwardIcon fontSize="inherit"/>
+                          </IconButton>
                       </Grid>
                   </div>
               </div>
