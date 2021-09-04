@@ -28,7 +28,17 @@ const useStyles = makeStyles({
         flexDirection: "column",
         justifyContent: "space-between",
         zIndex: 1,
+    },
+    controlIcons: {
+        color: "#777",
+        fontSize: 50,
+        transform: "scale(0.9)",
+        "&:hover": {
+            color: "#fff",
+            transform: "scale(1)",
+        }
     }
+
 })
 
 function App() {
@@ -64,6 +74,8 @@ function App() {
                               </Button>
                           </Grid>
                       </Grid>
+
+                      {/*Middle controls*/}
                       <Grid container direction="row" alignItems="center" justify="center">
                           <IconButton className={classes.controlIcons} aria-label="reqind">
                                 <FastRewindIcon fontSize="inherit"/>
@@ -76,6 +88,15 @@ function App() {
                           <IconButton className={classes.controlIcons} aria-label="reqind">
                                 <FastForwardIcon fontSize="inherit"/>
                           </IconButton>
+                      </Grid>
+
+                      {/*Bottom controls*/}
+                      <Grid container
+                            direction="row"
+                            justify="space-between"
+                            alignItems="center"
+                            style={{padding: 16}}>
+
                       </Grid>
                   </div>
               </div>
