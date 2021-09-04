@@ -156,8 +156,8 @@ function App() {
                           <PrettoSlider min={0} max={100} defaultValue={20} ValueLabelComponent={ValueLabelComponent}/>
                       </Grid>
 
-                      <Grid>
-
+                      <Grid item>
+                          <Grid container alignItems="center" direction="row"></Grid>
                       </Grid>
                   </div>
               </div>
