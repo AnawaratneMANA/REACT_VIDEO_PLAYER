@@ -1,7 +1,7 @@
 import React from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import {Button, Container, Slider, Typography} from "@material-ui/core";
+import {Button, Container, Slider, Tooltip, Typography} from "@material-ui/core";
 import ReactPlayer from "react-player";
 import {makeStyles} from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -52,9 +52,20 @@ const useStyles = makeStyles({
 
 });
 
+function ValueLabelComponent(props) {
+    const { children, open, value } = props;
+
+    return (
+        <Tooltip open={open} enterTouchDelay={0} placement="top" title={value}>
+            {children}
+        </Tooltip>
+    );
+}
+
+
 const PrettoSlider = withStyles({
     root: {
-        color: '#52af77',
+        color: '#2c72dd',
         height: 8,
     },
     thumb: {
@@ -142,7 +153,11 @@ function App() {
 
                       {/*Slider*/}
                       <Grid item xs={12}>
-                          <PrettoSlider min={0} max={100} defaultValue={20}/>
+                          <PrettoSlider min={0} max={100} defaultValue={20} ValueLabelComponent={ValueLabelComponent}/>
+                      </Grid>
+
+                      <Grid>
+
                       </Grid>
                   </div>
               </div>
