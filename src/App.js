@@ -38,9 +38,19 @@ const useStyles = makeStyles({
             color: "#fff",
             transform: "scale(1)",
         }
+    },
+    bottomIcons: {
+        color: "#999",
+        "&:hover": {
+            color: "#fff",
+        },
+    },
+
+    volumeSlider: {
+        width: "100%"
     }
 
-})
+});
 
 const PrettoSlider = withStyles({
     root: {
@@ -128,6 +138,11 @@ function App() {
                             alignItems="center"
                             style={{padding: 16}}>
 
+                      </Grid>
+
+                      {/*Slider*/}
+                      <Grid item xs={12}>
+                          <PrettoSlider min={0} max={100} defaultValue={20}/>
                       </Grid>
                   </div>
               </div>
