@@ -13,6 +13,9 @@ import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import PauseIcon from "@material-ui/icons/Pause";
 import {withStyles} from "@material-ui/styles";
 import VolumeUpIcon from "@material-ui/icons/VolumeUp"
+import FullScreenButton from "@material-ui/icons/Fullscreen"
+import Popover from '@material-ui/core/Popover';
+
 const useStyles = makeStyles({
     playerWrapper: {
         width: "100%",
@@ -54,7 +57,7 @@ const useStyles = makeStyles({
 });
 
 function ValueLabelComponent(props) {
-    const { children, open, value } = props;
+    const {children, open, value} = props;
 
     return (
         <Tooltip open={open} enterTouchDelay={0} placement="top" title={value}>
@@ -96,104 +99,145 @@ const PrettoSlider = withStyles({
 
 function App() {
     const classes = useStyles();
-  return (
-      <React.Fragment>
-        <AppBar position="fixed">
-          <Toolbar>
-            <Typography variant="h6">React Video Player</Typography>
-          </Toolbar>
-        </AppBar>
-        <Toolbar/>
-          <Container maxWidth="md">
-              <div className={classes.playerWrapper}>
-                  <ReactPlayer
-                      width={"100%"}
-                      url="https://www.youtube.com/watch?v=wGixQPuG1GY"
-                      muted={true}
-                      playing={true}
-                  />
-                  <div className={classes.controlWrapper}>
-                      <Grid container direction="row" alignItems="center" justify ="space-between" style={{padding: 16}}>
-                          <Grid item>
-                            <Typography variant="h5" style={{color: "#fff"}}>Video Title</Typography>
-                          </Grid>
-                          <Grid item>
-                              <Button
-                                  variant="contained"
-                                  color="primary"
-                                  startIcon={<BookmarkIcon/>}
-                              > Bookmark
+    const [anchorEl, setAnchorEl] = React.useState(null);
 
-                              </Button>
-                          </Grid>
-                      </Grid>
+    const handlePopover = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
 
-                      {/*Middle controls*/}
-                      <Grid container direction="row" alignItems="center" justify="center">
-                          <IconButton className={classes.controlIcons} aria-label="reqind">
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const open = Boolean(anchorEl);
+    const id = open ? 'playbackrate-popover' : undefined;
+
+    return (
+        <React.Fragment>
+            <AppBar position="fixed">
+                <Toolbar>
+                    <Typography variant="h6">React Video Player</Typography>
+                </Toolbar>
+            </AppBar>
+            <Toolbar/>
+            <Container maxWidth="md">
+                <div className={classes.playerWrapper}>
+                    <ReactPlayer
+                        width={"100%"}
+                        url="https://www.youtube.com/watch?v=wGixQPuG1GY"
+                        muted={true}
+                        playing={true}
+                        border-radius='16px'
+                        overflow="hidden"
+                    />
+                    <div className={classes.controlWrapper}>
+                        <Grid container direction="row" alignItems="center" justify="space-between"
+                              style={{padding: 16}}>
+                            <Grid item>
+                                <Typography variant="h5" style={{color: "#fff"}}>Custom Player Title</Typography>
+                            </Grid>
+                            <Grid item>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    startIcon={<BookmarkIcon/>}
+                                > Bookmark
+
+                                </Button>
+                            </Grid>
+                        </Grid>
+
+                        {/*Middle controls*/}
+                        <Grid container direction="row" alignItems="center" justify="center">
+                            <IconButton className={classes.controlIcons} aria-label="reqind">
                                 <FastRewindIcon fontSize="inherit"/>
-                          </IconButton>
+                            </IconButton>
 
-                          <IconButton className={classes.controlIcons} aria-label="reqind">
+                            <IconButton className={classes.controlIcons} aria-label="reqind">
                                 <PlayArrowIcon fontSize="inherit"/>
-                          </IconButton>
+                            </IconButton>
 
-                          <IconButton className={classes.controlIcons} aria-label="reqind">
+                            <IconButton className={classes.controlIcons} aria-label="reqind">
                                 <FastForwardIcon fontSize="inherit"/>
-                          </IconButton>
-                      </Grid>
+                            </IconButton>
+                        </Grid>
 
-                      {/*Bottom controls*/}
-                      <Grid container
-                            direction="row"
-                            justify="space-between"
-                            alignItems="center"
-                            style={{padding: 16}}>
+                        {/*Bottom controls*/}
+                        <Grid container
+                              direction="row"
+                              justify="space-between"
+                              alignItems="center"
+                              style={{padding: 16}}>
 
 
+                            {/*Slider*/}
+                            <Grid item xs={12}>
+                                <PrettoSlider
+                                    min={0}
+                                    max={100}
+                                    defaultValue={20}
+                                    ValueLabelComponent={ValueLabelComponent}/>
+                            </Grid>
 
-                      {/*Slider*/}
-                      <Grid item xs={12}>
-                          <PrettoSlider
-                              min={0}
-                              max={100}
-                              defaultValue={20}
-                              ValueLabelComponent={ValueLabelComponent}/>
-                      </Grid>
+                            <Grid item>
+                                <Grid container
+                                      alignItems="center"
+                                      direction="row">
+                                    <IconButton className={classes.bottomIcons}>
+                                        <PlayArrowIcon fontSize="large"/>
+                                    </IconButton>
 
-                      <Grid item>
-                          <Grid container
-                                alignItems="center"
-                                direction="row">
-                              <IconButton className={classes.bottomIcons}>
-                                  <PlayArrowIcon fontSize="large"/>
-                              </IconButton>
+                                    <IconButton className={classes.bottomIcons}>
+                                        <VolumeUpIcon fontSize="large"/>
+                                    </IconButton>
 
-                              <IconButton className={classes.bottomIcons}>
-                                  <VolumeUpIcon fontSize="large"/>
-                              </IconButton>
+                                    <Slider min={0}
+                                            max={100}
+                                            defaultValue={100}
+                                            className={classes.volumeSlider}
+                                    />
+                                    <Button variant="text" style={{color: "#fff", marginLeft: 16}}>
+                                        <Typography>88:88</Typography>
+                                    </Button>
+                                </Grid>
+                            </Grid>
+                            <Grid item>
+                                <Button onClick={handlePopover} variant="text" className={classes.bottomIcons}>
+                                    <Typography>1X</Typography>
+                                </Button>
+                                <Popover
+                                    id={id}
+                                    open={open}
+                                    anchorEl={anchorEl}
+                                    onClose={handleClose}
+                                    anchorOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'center',
+                                    }}
+                                    transformOrigin={{
+                                        vertical: 'bottom',
+                                        horizontal: 'center',
+                                    }}
+                                >
+                                    <Grid container direction="column-reverse">
+                                    {[0.5,1,1.5,2].map((rate) => (
+                                        <Button variant="text">
+                                            <Typography color="secondary">{rate}</Typography>
+                                        </Button>
+                                    ))}
+                                    </Grid>
 
-                              <Slider min={0}
-                                      max={100}
-                                      defaultValue={100}
-                                      className={classes.volumeSlider}
-                              />
-                              <Button variant="text" style={{color: "#fff", marginLeft: 16}}>
-                                  <Typography>88:88</Typography>
-                              </Button>
-                          </Grid>
-                      </Grid>
-                      <Grid item>
-                          <Button variant="text" className={classes.bottomIcons}>
-                              <Typography>1X</Typography>
-                          </Button>
-                      </Grid>
-                      </Grid>
-                  </div>
-              </div>
-          </Container>
-      </React.Fragment>
-  );
+                                </Popover>
+                                <IconButton className={classes.bottomIcons}>
+                                    <FullScreenButton fontSize="large"/>
+                                </IconButton>
+                            </Grid>
+                        </Grid>
+                    </div>
+                </div>
+            </Container>
+        </React.Fragment>
+    );
 }
 
 export default App;
