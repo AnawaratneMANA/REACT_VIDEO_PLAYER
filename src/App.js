@@ -9,9 +9,10 @@ import BookmarkIcon from "@material-ui/icons/Bookmark";
 import IconButton from "@material-ui/core/IconButton";
 import FastRewindIcon from "@material-ui/icons/FastRewind";
 import FastForwardIcon from "@material-ui/icons/FastForward";
-import PlayArrow from "@material-ui/icons/PlayArrow";
+import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import PauseIcon from "@material-ui/icons/Pause";
 import {withStyles} from "@material-ui/styles";
+import VolumeUpIcon from "@material-ui/icons/VolumeUp"
 const useStyles = makeStyles({
     playerWrapper: {
         width: "100%",
@@ -47,7 +48,7 @@ const useStyles = makeStyles({
     },
 
     volumeSlider: {
-        width: "100%"
+        width: 100
     }
 
 });
@@ -134,7 +135,7 @@ function App() {
                           </IconButton>
 
                           <IconButton className={classes.controlIcons} aria-label="reqind">
-                                <PlayArrow fontSize="inherit"/>
+                                <PlayArrowIcon fontSize="inherit"/>
                           </IconButton>
 
                           <IconButton className={classes.controlIcons} aria-label="reqind">
@@ -153,11 +154,27 @@ function App() {
 
                       {/*Slider*/}
                       <Grid item xs={12}>
-                          <PrettoSlider min={0} max={100} defaultValue={20} ValueLabelComponent={ValueLabelComponent}/>
+                          <PrettoSlider
+                              min={0}
+                              max={100}
+                              defaultValue={20}
+                              ValueLabelComponent={ValueLabelComponent}/>
                       </Grid>
 
                       <Grid item>
-                          <Grid container alignItems="center" direction="row"></Grid>
+                          <Grid container
+                                alignItems="center"
+                                direction="row">
+                              <IconButton className={classes.bottomIcons}>
+                                  <PlayArrowIcon fontSize="large"/>
+                              </IconButton>
+
+                              <IconButton className={classes.bottomIcons}>
+                                  <VolumeUpIcon fontSize="large"/>
+                              </IconButton>
+
+                              <Slider min={0} max={100} defaultValue={100} className={classes.volumeSlider}/>
+                          </Grid>
                       </Grid>
                   </div>
               </div>
