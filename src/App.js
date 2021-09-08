@@ -150,7 +150,7 @@ function App() {
                             alignItems="center"
                             style={{padding: 16}}>
 
-                      </Grid>
+
 
                       {/*Slider*/}
                       <Grid item xs={12}>
@@ -173,8 +173,21 @@ function App() {
                                   <VolumeUpIcon fontSize="large"/>
                               </IconButton>
 
-                              <Slider min={0} max={100} defaultValue={100} className={classes.volumeSlider}/>
+                              <Slider min={0}
+                                      max={100}
+                                      defaultValue={100}
+                                      className={classes.volumeSlider}
+                              />
+                              <Button variant="text" style={{color: "#fff", marginLeft: 16}}>
+                                  <Typography>88:88</Typography>
+                              </Button>
                           </Grid>
+                      </Grid>
+                      <Grid item>
+                          <Button variant="text" className={classes.bottomIcons}>
+                              <Typography>1X</Typography>
+                          </Button>
+                      </Grid>
                       </Grid>
                   </div>
               </div>
